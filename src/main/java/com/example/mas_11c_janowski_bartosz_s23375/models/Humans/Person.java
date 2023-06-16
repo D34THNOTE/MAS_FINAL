@@ -5,11 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -20,27 +16,36 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-@SuperBuilder
+@Builder
+@ToString
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPerson;
 
     @NotBlank(message = "First name is required")
-    @Size(min = 2, max = 150)
+    @Size(min = 2, max = 150, message = "First name has to be between 2 and 150 characters long")
     private String firstName;
 
     @NotBlank(message = "Last name is required")
-    @Size(min = 2, max = 150)
+    @Size(min = 2, max = 150, message = "Last name has to be between 2 and 150 characters long")
     private String lastName;
 
     @NotNull(message = "Date of birth is required")
     private LocalDate dateOfBirth;
 
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.REMOVE, orphanRemoval = true, optional = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Employee employee;
+
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.REMOVE, orphanRemoval = true, optional = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Customer customer;
+
     @ElementCollection
     @CollectionTable(name = "person_phone_numbers", joinColumns = @JoinColumn(name = "id_person"))
-    @Builder.Default
     @Size(min = 1, message = "At least one phone number is required")
     private Set<String> phoneNumbers = new HashSet<>();
 

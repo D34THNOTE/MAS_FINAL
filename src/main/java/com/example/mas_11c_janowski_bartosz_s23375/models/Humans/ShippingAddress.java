@@ -8,16 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Embeddable
 public class ShippingAddress {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idShippingAddress;
-
     @NotBlank(message = "Street is required")
     private String street;
 
