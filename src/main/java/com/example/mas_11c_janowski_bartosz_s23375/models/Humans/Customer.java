@@ -41,5 +41,6 @@ public class Customer {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default
+    @OrderBy("purchaseDate DESC") // ordering by "purchase date" constraint
     private List<Purchase> purchases = new ArrayList<>();
 }
