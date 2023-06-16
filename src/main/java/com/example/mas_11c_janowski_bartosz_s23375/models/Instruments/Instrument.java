@@ -2,30 +2,34 @@ package com.example.mas_11c_janowski_bartosz_s23375.models.Instruments;
 
 import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.Materials.Metal;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.Materials.Wood;
+import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Purchase;
 import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Stock;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 @ToString
-@Inheritance(strategy = InheritanceType.JOINED) // use JOINED
+@Inheritance(strategy = InheritanceType.JOINED)
+@SuperBuilder
 public abstract class Instrument {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idInstrument;
 
-    @NotNull(message = "Model name is required")
+    @NotBlank(message = "Model name is required")
     @Size(min = 1, max = 300, message = "Model's name has to be between 1 and 300 characters long")
     @Column(unique = true) // ensures uniqueness of modelName
     private String modelName;
@@ -54,4 +58,10 @@ public abstract class Instrument {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Metal metal;
+
+    @OneToMany(mappedBy = "instrument", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    private List<Purchase> purchases = new ArrayList<>();
 }

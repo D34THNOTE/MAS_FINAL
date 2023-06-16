@@ -1,10 +1,14 @@
 package com.example.mas_11c_janowski_bartosz_s23375.models.Humans;
 
+import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Purchase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -33,4 +37,9 @@ public class Customer {
     private ShippingAddress shippingAddress;
 
     // use an annotation for sorting Purchases or write a query(will need a List, not a Set, of Purchases here for the association)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    private List<Purchase> purchases = new ArrayList<>();
 }

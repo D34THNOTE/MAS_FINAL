@@ -3,6 +3,7 @@ package com.example.mas_11c_janowski_bartosz_s23375.models.Store;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Person;
 import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Stock;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -21,7 +22,7 @@ public class StorageRoom {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idStorageRoom;
 
-    @NotNull(message = "Description of storage's location is required")
+    @NotBlank(message = "Description of storage's location is required")
     @Size(min = 2, max = 2000, message = "Description has to be between 2 and 2000 characters long")
     private String location;
 

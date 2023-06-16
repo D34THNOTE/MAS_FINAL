@@ -1,8 +1,10 @@
 package com.example.mas_11c_janowski_bartosz_s23375.models.Store;
 
+import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Employee;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.ShippingAddress;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -21,7 +23,7 @@ public class MusicStore {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idMusicStore;
 
-    @NotNull(message = "Store name is required")
+    @NotBlank(message = "Store name is required")
     @Size(min = 2, max = 500)
     private String storeName;
 
@@ -38,4 +40,10 @@ public class MusicStore {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<StorageRoom> storageRooms = new HashSet<>();
+
+    @OneToMany(mappedBy = "worksIn", fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Employee> employees = new HashSet<>();
 }

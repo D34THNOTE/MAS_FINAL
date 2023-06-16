@@ -1,5 +1,6 @@
 package com.example.mas_11c_janowski_bartosz_s23375.models.Humans;
 
+import com.example.mas_11c_janowski_bartosz_s23375.models.Store.MusicStore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Min;
@@ -41,8 +42,14 @@ public class Employee {
     @NotNull
     private static Double minimumHourlyRate = 10.0;
 
-    @AssertTrue(message = "Hourly rate must be at least 10.00")
+    @AssertTrue(message = "Hourly rate must be at least 10.00") // this must pass when creating an Employee
     private boolean isHourlyRateValid() {
         return hourlyRate >= minimumHourlyRate;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "id_music_store")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private MusicStore worksIn;
 }
