@@ -34,6 +34,7 @@ public class Person {
     @NotNull(message = "Date of birth is required")
     private LocalDate dateOfBirth;
 
+    // OR constraint between Employee and Customer implemented on service layer or as a custom validator
     @OneToOne(mappedBy = "owner", cascade = CascadeType.REMOVE, orphanRemoval = true, optional = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

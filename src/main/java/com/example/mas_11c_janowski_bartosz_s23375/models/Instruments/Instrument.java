@@ -48,7 +48,7 @@ public abstract class Instrument {
     @Builder.Default
     private Set<Stock> stocks = new HashSet<>();
 
-    // XOR constraint between Wood and Metal should be implemented in service layer
+    // XOR constraint between Wood and Metal should be implemented in service layer or as a custom validator
     @OneToOne(mappedBy = "instrument", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
