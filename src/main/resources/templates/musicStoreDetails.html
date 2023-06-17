@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Music stores</title>
+</head>
+<body>
+<nav class="navbar navbar-light" style="background-color: #ABC3FF">
+    <div class="top-nav">
+        <div class="logo-text-container">
+            <img src="/images/storeLogo.png" width="40px" alt="music stores logo" />
+            <a class="nav-title" href="/music_stores">Music stores</a>
+        </div>
+    </div>
+    <ul>
+        <li><a href="/music_stores" class="custom-button">View stores</a></li>
+    </ul>
+</nav>
+
+<div class="content-wrapper">
+    <div class="heading-wrapper">
+        <h2 class="heading-text">View stores</h2>
+    </div>
+
+    <h2 class="details-header">Details</h2>
+
+    <div class="details-text">
+        <p><strong>Store name:</strong> <span th:text="${musicStore.storeName}"></span></p>
+        <p><strong>Street:</strong> <span th:text="${musicStore.storeAddress.street}"></span></p>
+        <p><strong>Street number:</strong> <span th:text="${musicStore.storeAddress.streetNumber}"></span></p>
+        <p><strong>Zip code:</strong> <span th:text="${musicStore.storeAddress.zipCode}"></span></p>
+        <p><strong>City:</strong> <span th:text="${musicStore.storeAddress.city}"></span></p>
+        <p><strong>Country:</strong> <span th:text="${musicStore.storeAddress.country}"></span></p>
+        <p><strong>Number of floors:</strong> <span th:text="${musicStore.floorsNumber}"></span></p>
+    </div>
+
+    <h2 class="details-header">Storages</h2>
+
+    <div th:each="storage : ${storages}" class="list-card">
+        <div class="list-info">
+            <h3 class="list-name" th:text="${'Storage ' + storage.idStorageRoom}"></h3>
+            <div class="list-details">
+                <p><strong>Location:</strong> <span th:text="${storage.location}"></span></p>
+            </div>
+        </div>
+        <div class="view-details-button">
+            <a th:href="@{/music_stores}" class="list-actions-button-details">Add an item</a>
+        </div>
+    </div>
+
+
+    <ul>
+        <li><a href="/music_stores" class="return-button">Return</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

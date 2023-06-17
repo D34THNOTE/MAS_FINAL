@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Music stores</title>
+</head>
+<body>
+<nav class="navbar navbar-light" style="background-color: #ABC3FF">
+    <div class="top-nav">
+        <div class="logo-text-container">
+            <img src="/images/storeLogo.png" width="40px" alt="music stores logo" />
+            <a class="nav-title" href="/music_stores">Music stores</a>
+        </div>
+    </div>
+    <ul>
+        <li><a href="/music_stores" class="custom-button">View stores</a></li>
+    </ul>
+</nav>
+
+<div class="content-wrapper">
+    <div class="heading-wrapper">
+        <h2 class="heading-text">View stores</h2>
+    </div>
+
+    <h2 class="details-header">Add an item</h2>
+
+    <label for="quantity">Quantity: </label>
+    <input type="number" name="quantity" id="quantity" value="" class="">
+    <span id="errorQuantity" class="errors-text">ERROR</span>
+
+    <label for="instrument">Instrument:</label>
+    <select name="instrument" id="instrument">
+        <option value="">-- Choose an instrument --</option>
+        <option th:each="instrument : ${instruments}" th:value="${instrument.idInstrument}">
+            <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Guitar)}">Guitar - </span>
+            <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Drum)}">Drum - </span>
+            <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Cymbal)}">Cymbal - </span>
+            <span th:text="${instrument.modelName}"></span>
+        </option>
+    </select>
+
+
+
+
+    <ul>
+        <li><a href="/music_stores" class="return-button">Return</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

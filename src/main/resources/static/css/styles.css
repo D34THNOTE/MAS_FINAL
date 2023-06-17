@@ -81,9 +81,28 @@ a {
 
 
 .custom-button:hover {
-    background-color: #C4E2FF;
+    background-color: #8d8d8d;
 }
 
+.return-button {
+    position: fixed;
+    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    left: 215px;
+    display: block;
+    width: 10%;
+    padding: 10px;
+    background-color: #87E2FF;
+    transition: background-color 0.3s ease;
+
+    /* text properties */
+    font-weight: 600;
+    font-size: 20px;
+    color: black;
+}
+
+.return-button:hover {
+    background-color: #26a0c5;
+}
 
 
 
@@ -114,7 +133,7 @@ a {
 
 /* The list of music stores */
 
-.store-info-row {
+.list-info-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -122,7 +141,7 @@ a {
 
 
 
-.store-card {
+.list-card {
     background-color: #E2E2E2;
     padding-top: 5px;
     padding-left: 20px;
@@ -134,21 +153,21 @@ a {
     margin: 10px 15px;
 }
 
-.store-name {
+.list-name {
     font-weight: bold;
     font-size: 18px;
     margin: 0;
     margin-bottom: 10px;
 }
 
-.store-details {
+.list-details {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-end;
 }
 
-.store-details p {
+.list-details p {
     margin: 0;
 }
 
@@ -171,4 +190,17 @@ a {
 
 .list-actions-button-details:hover {
     background-color: #909090;
+}
+
+.details-header {
+    border-bottom: 1px solid #7f8c8d;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.details-text {
+    margin-left: 15px;
 }

@@ -1,6 +1,7 @@
 package com.example.mas_11c_janowski_bartosz_s23375.dataInitialization;
 
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.MusicStore;
+import com.example.mas_11c_janowski_bartosz_s23375.models.Store.StorageRoom;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.StoreAddress;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -39,8 +40,28 @@ public class MusicStoreDataInitialization {
                         .build())
                 .build();
 
+        // Storages, initialized here because I need instance to assign owner of the storage
+        StorageRoom storageRoom1 = StorageRoom.builder()
+                .location("Zielone drzwi za sekcją gitarową")
+                .owner(musicStore1)
+                .build();
+
+        StorageRoom storageRoom2 = StorageRoom.builder()
+                .location("Czarne drzwi obok wejścia")
+                .owner(musicStore1)
+                .build();
+
+//        StorageRoom storageRoom3 = StorageRoom.builder()
+//                .location("Drzwi naprzeciwko wejścia do sklepu")
+//                .owner(musicStore2)
+//                .build();
+
         // saving these objects to the database without a need of a method inside Repository
         entityManager.persist(musicStore1);
         entityManager.persist(musicStore2);
+
+        entityManager.persist(storageRoom1);
+        entityManager.persist(storageRoom2);
+        // entityManager.persist(storageRoom3);
     }
 }

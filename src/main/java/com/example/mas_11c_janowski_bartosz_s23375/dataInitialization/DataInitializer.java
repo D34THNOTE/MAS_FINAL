@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 public class DataInitializer implements CommandLineRunner {
 
     private final MusicStoreDataInitialization musicStoreDataInitialization;
+    private final InstrumentDataInitialization instrumentDataInitialization;
 
     @Override
     public void run(String... args) {
         musicStoreDataInitialization.createMusicStores();
+        instrumentDataInitialization.createInstruments();
     }
 }
