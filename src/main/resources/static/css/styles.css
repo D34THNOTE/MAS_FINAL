@@ -93,15 +93,22 @@ a {
 
 .content-wrapper {
     margin-left: 200px; /* Same as the width of the navbar */
-    padding: 20px;
     box-sizing: border-box;
 }
 
 .heading-wrapper {
     background-color: #E2E2E2;
     padding: 10px 20px;
-    display: inline-block;
+    display: block;
+    width: 100%;
+    color: #777777;
 }
+
+.heading-text {
+    margin: 0;
+    font-size: 29px;
+}
+
 
 
 
@@ -120,10 +127,11 @@ a {
     padding-top: 5px;
     padding-left: 20px;
     padding-right: 20px;
-    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
+    margin: 10px 15px;
 }
 
 .store-name {
