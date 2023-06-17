@@ -2,8 +2,16 @@ package com.example.mas_11c_janowski_bartosz_s23375.models.Store;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Embeddable
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class StoreAddress {
     @NotBlank(message = "Street is required")
     private String street;

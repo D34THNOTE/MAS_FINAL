@@ -1,0 +1,166 @@
+html {
+    background-color: #EEEEEE;
+    font-family: sans-serif;
+}
+body {
+    min-width: 600px;
+    margin: 0;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+}
+
+header,
+main,
+footer {
+    background-color: white;
+}
+
+header,
+main,
+footer,
+nav {
+    border: none;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 200px;
+    height: 100vh;
+    background-color: #ABC3FF;
+}
+
+
+.logo-text-container {
+    display: flex;
+    align-items: center;
+}
+
+.top-nav {
+    padding: 10px;
+}
+
+.nav-title {
+    font-weight: 600;
+    color: black;
+}
+
+.nav-link {
+    margin-left: 10px; /* Adjust the margin as needed */
+}
+
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    display: block;
+}
+a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.custom-button {
+    display: block;
+    width: 90%;
+    padding: 10px;
+    background-color: #D9D9D9;
+    transition: background-color 0.3s ease;
+
+    /* text properties */
+    font-weight: 600;
+    color: black;
+}
+
+
+.custom-button:hover {
+    background-color: #C4E2FF;
+}
+
+
+
+
+
+
+/* content to the right of the navbar */
+
+.content-wrapper {
+    margin-left: 200px; /* Same as the width of the navbar */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.heading-wrapper {
+    background-color: #E2E2E2;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+
+
+/* The list of music stores */
+
+.store-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+
+
+.store-card {
+    background-color: #E2E2E2;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.store-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.store-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.store-details p {
+    margin: 0;
+}
+
+
+.view-details-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    align-self: center;
+    font-weight: 600;
+}
+
+.list-actions-button-details {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #C1C1C1;
+    color: black;
+}
+
+
+.list-actions-button-details:hover {
+    background-color: #909090;
+}

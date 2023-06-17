@@ -9,6 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Embeddable
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ShippingAddress {
     @NotBlank(message = "Street is required")
     private String street;

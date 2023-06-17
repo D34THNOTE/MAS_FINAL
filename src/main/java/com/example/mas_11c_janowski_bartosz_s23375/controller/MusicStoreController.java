@@ -2,8 +2,8 @@ package com.example.mas_11c_janowski_bartosz_s23375.controller;
 
 import org.springframework.stereotype.Controller;
 
-@Controller // double check
-public class musicStoreController {
+@Controller
+public class MusicStoreController {
 
 
 
