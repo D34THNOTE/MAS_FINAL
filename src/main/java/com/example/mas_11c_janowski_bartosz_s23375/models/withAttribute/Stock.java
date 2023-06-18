@@ -23,9 +23,13 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idStock;
 
-    @NotNull(message = "Stock number is required")
     @Min(value = 0, message = "Stock number cannot be smaller than 0")
     private Integer stockNumber;
+    public void setStockNumber(Double stockNumber) {
+        if (stockNumber != null) {
+            this.stockNumber = (int) Math.round(stockNumber);
+        }
+    }
 
     @ManyToOne
     @JoinColumn(name = "id_storage_room", nullable = false)

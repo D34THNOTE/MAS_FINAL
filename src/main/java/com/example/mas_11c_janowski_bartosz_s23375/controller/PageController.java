@@ -6,13 +6,12 @@ import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Stock;
 import com.example.mas_11c_janowski_bartosz_s23375.repositories.StorageRoomRepository;
 import com.example.mas_11c_janowski_bartosz_s23375.services.InstrumentService;
 import com.example.mas_11c_janowski_bartosz_s23375.services.MusicStoreService;
+import com.example.mas_11c_janowski_bartosz_s23375.services.StockService;
+import com.example.mas_11c_janowski_bartosz_s23375.services.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +23,10 @@ public class PageController {
     private final MusicStoreService musicStoreService;
 
     private final InstrumentService instrumentService;
+
+    private final StorageService storageService;
+
+    private final StockService stockService;
 
     @GetMapping("/music_stores")
     public String musicStoreList(Model model){
@@ -47,10 +50,17 @@ public class PageController {
 
 
     @GetMapping("/music_stores/{idStore}/storage/{idStorageRoom}")
-    public String stockAddForm(@PathVariable Long idStore, @PathVariable Long idStorageRoom, Model model){
+    public String stockAddForm(@PathVariable Long idStore, @PathVariable Long idStorageRoom,
+                               @RequestParam(value = "success", required = false) String success, Model model)
+    {
         model.addAttribute("instruments", instrumentService.listOfInstruments());
         model.addAttribute("idStorageRoom", idStorageRoom);
         model.addAttribute("idMusicStore", idStore);
+
+        if(success != null) {
+            model.addAttribute("success", "Storage successfully updated!");
+        }
+
         return "addItemForm";
     }
 
@@ -79,16 +89,32 @@ public class PageController {
             model.addAttribute("instrumentError", "Chosen instrument doesn't exist in the system");
         }
 
-
-        model.addAttribute("stock", stock);
+        // Adding previously entered data if there was at least 1 error
+        if(hasErrors) {
+            model.addAttribute("stock", stock);
+        }
 
         model.addAttribute("instruments", instrumentService.listOfInstruments());
         model.addAttribute("idStorageRoom", idStorageRoom);
         model.addAttribute("idMusicStore", idMusicStore);
 
-//        if(true) {
-//            return "redirect:/music_stores/" + idMusicStore + "/storage/" + idStorageRoom + "?success=true";
-//        }
+        if(!hasErrors) {
+            boolean successfulUpdate;
+            Optional<StorageRoom> relatedStorage = storageService.fetchStorageRoom(idStorageRoom);
+            relatedStorage.ifPresent(stock::setStorageRoom);
+
+            if(stockService.doesRecordExist(stock)) {
+                successfulUpdate = stockService.updateStock(stock);
+            } else {
+                successfulUpdate = stockService.insertNewStock(stock);
+            }
+
+            if(successfulUpdate) {
+                return "redirect:/music_stores/" + idMusicStore + "/storage/" + idStorageRoom + "?success=true";
+            } else {
+                return "addItemForm";
+            }
+        }
 
         return "addItemForm";
     }
