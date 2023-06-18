@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface InstrumentRepository extends CrudRepository<Instrument, Long> {
 
-
+    boolean existsByModelName(String modelName);
 
 }

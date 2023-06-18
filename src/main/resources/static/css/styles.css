@@ -191,8 +191,60 @@ a {
 
 
 
+/* FORM */
+
+.form {
+    display: grid;
+    grid-template-columns: 150px 300px 1fr;
+    gap: 1rem;
+}
+
+.form label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    margin-left: 15px;
+}
 
 /* BUTTONS */
+
+/* BUTTONS - GENERAL */
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    box-sizing: border-box;
+    padding: 0; margin: 0;
+}
+
+select,
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"] {
+    border: 1px solid #7f8c8d;
+    color: #2c3e50;
+    border-radius: 5px;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+select,
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"] {
+    border: 1px solid #7f8c8d;
+    color: #2c3e50;
+    border-radius: 5px;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+
+/* BUTTONS - SPECIFIC STUFF */
 
 .return-button {
     position: fixed;
@@ -250,4 +302,20 @@ a {
 
 .cancel-button:hover {
     background-color: #a11515;
+}
+
+
+
+/* error fields CSS */
+
+.form .error-input {
+    border: 3px solid #e74c3c;
+}
+
+.form .errors-text {
+    display: block;
+    font-size: 0.85rem;
+    line-height: 2.25rem;
+    margin-top: 0.5rem;
+    color: #e74c3c;
 }

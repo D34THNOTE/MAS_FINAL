@@ -27,14 +27,17 @@
 
     <h2 class="details-header">Add an item</h2>
 
-    <form class="form" method="post" th:action="@{/submitForm}" th:object="${stock}" novalidate>
+    <form class="form" method="post" th:action="@{/music_stores/{idMusicStore}/submitStock/{idStorageRoom}
+    (idMusicStore=${idMusicStore}, idStorageRoom=${idStorageRoom})}"
+          th:object="${stock}" novalidate>
 
-        <label for="quantity">Quantity: </label>
-        <input type="number" name="quantity" id="quantity" value="" class="">
-        <span id="errorQuantity" class="errors-text">ERROR</span>
+        <label for="stockNumber"><strong>Quantity</strong>: </label>
+        <input type="number" name="stockNumber" id="stockNumber" th:value="${stock != null ? stock.stockNumber : ''}"
+               th:class="${stockNumberError != null ? 'error-input' : ''}">
+        <span id="errorStockNumber" class="errors-text" th:text="${stockNumberError}"></span>
 
-        <label for="instrument">Instrument:</label>
-        <select name="instrument" id="instrument">
+        <label for="instrument"><strong>Instrument</strong>:</label>
+        <select name="instrument" id="instrument" th:class="${instrumentError != null ? 'error-input' : ''}">
             <option value="">-- Choose an instrument --</option>
             <option th:each="instrument : ${instruments}" th:value="${instrument.idInstrument}"
                     th:selected="${stock != null && instrument.idInstrument == stock.instrument?.idInstrument}">
@@ -44,6 +47,7 @@
                 <span th:text="${instrument.modelName}"></span>
             </option>
         </select>
+        <span id="errorInstrument" class="errors-text" th:text="${instrumentError}"></span>
 
 
         <div class="form-buttons">
@@ -51,7 +55,7 @@
 
             <ul>
                 <li>
-                    <a th:href="@{/music_stores/{idMusicStore}(idMusicStore=${musicStore.idMusicStore})}" class="cancel-button">Cancel</a>
+                    <a th:href="@{/music_stores/{idMusicStore}(idMusicStore=${idMusicStore})}" class="cancel-button">Cancel</a>
                 </li>
             </ul>
         </div>

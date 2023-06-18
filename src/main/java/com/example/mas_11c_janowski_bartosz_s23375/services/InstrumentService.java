@@ -22,7 +22,9 @@ public class InstrumentService {
         return (List<Instrument>) instrumentRepository.findAll();
     }
 
-
+    public boolean verifyInstrumentExists(Instrument instrument) {
+        return instrumentRepository.existsByModelName(instrument.getModelName());
+    }
 
 
 
