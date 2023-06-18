@@ -27,27 +27,36 @@
 
     <h2 class="details-header">Add an item</h2>
 
-    <label for="quantity">Quantity: </label>
-    <input type="number" name="quantity" id="quantity" value="" class="">
-    <span id="errorQuantity" class="errors-text">ERROR</span>
+    <form class="form" method="post" th:action="@{/submitForm}" th:object="${stock}" novalidate>
 
-    <label for="instrument">Instrument:</label>
-    <select name="instrument" id="instrument">
-        <option value="">-- Choose an instrument --</option>
-        <option th:each="instrument : ${instruments}" th:value="${instrument.idInstrument}">
-            <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Guitar)}">Guitar - </span>
-            <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Drum)}">Drum - </span>
-            <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Cymbal)}">Cymbal - </span>
-            <span th:text="${instrument.modelName}"></span>
-        </option>
-    </select>
+        <label for="quantity">Quantity: </label>
+        <input type="number" name="quantity" id="quantity" value="" class="">
+        <span id="errorQuantity" class="errors-text">ERROR</span>
+
+        <label for="instrument">Instrument:</label>
+        <select name="instrument" id="instrument">
+            <option value="">-- Choose an instrument --</option>
+            <option th:each="instrument : ${instruments}" th:value="${instrument.idInstrument}"
+                    th:selected="${stock != null && instrument.idInstrument == stock.instrument?.idInstrument}">
+                <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Guitar)}">Guitar - </span>
+                <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Drum)}">Drum - </span>
+                <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Cymbal)}">Cymbal - </span>
+                <span th:text="${instrument.modelName}"></span>
+            </option>
+        </select>
 
 
+        <div class="form-buttons">
+            <input class="form-button-submit" type="submit" value="Add item" />
 
+            <ul>
+                <li>
+                    <a th:href="@{/music_stores/{idMusicStore}(idMusicStore=${musicStore.idMusicStore})}" class="cancel-button">Cancel</a>
+                </li>
+            </ul>
+        </div>
 
-    <ul>
-        <li><a href="/music_stores" class="return-button">Return</a></li>
-    </ul>
+    </form>
 </div>
 
 </body>

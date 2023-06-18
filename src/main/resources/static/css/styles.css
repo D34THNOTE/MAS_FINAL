@@ -84,25 +84,9 @@ a {
     background-color: #8d8d8d;
 }
 
-.return-button {
-    position: fixed;
-    bottom: 20px; /* Adjust the distance from the bottom as needed */
-    left: 215px;
-    display: block;
-    width: 10%;
-    padding: 10px;
-    background-color: #87E2FF;
-    transition: background-color 0.3s ease;
 
-    /* text properties */
-    font-weight: 600;
-    font-size: 20px;
-    color: black;
-}
 
-.return-button:hover {
-    background-color: #26a0c5;
-}
+
 
 
 
@@ -203,4 +187,67 @@ a {
 
 .details-text {
     margin-left: 15px;
+}
+
+
+
+
+/* BUTTONS */
+
+.return-button {
+    position: fixed;
+    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    left: 215px;
+    display: block;
+    width: 10%;
+    padding: 10px;
+    background-color: #87E2FF;
+    transition: background-color 0.3s ease;
+
+    /* text properties */
+    font-weight: 600;
+    font-size: 20px;
+    color: black;
+}
+
+.return-button:hover {
+    background-color: #26a0c5;
+}
+
+
+.form-buttons {
+    position: fixed;
+    bottom: 20px;
+    left: 215px;
+}
+
+.form-button-submit, .cancel-button {
+    display: block;
+    box-sizing: content-box;
+
+    padding: 10px;
+    margin-right: 10px;
+    width: 150%;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    font-size: 20px;
+    color: black;
+}
+
+.form-button-submit {
+    margin-bottom: 10px;
+    border: 0;
+    background-color: #38FF64;
+}
+
+.form-button-submit:hover {
+    background-color: #178831;
+}
+
+.cancel-button {
+    background-color: #FF5151;
+}
+
+.cancel-button:hover {
+    background-color: #a11515;
 }

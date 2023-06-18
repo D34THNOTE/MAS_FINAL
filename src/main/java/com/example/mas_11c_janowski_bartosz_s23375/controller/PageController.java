@@ -2,6 +2,7 @@ package com.example.mas_11c_janowski_bartosz_s23375.controller;
 
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.MusicStore;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.StorageRoom;
+import com.example.mas_11c_janowski_bartosz_s23375.repositories.StorageRoomRepository;
 import com.example.mas_11c_janowski_bartosz_s23375.services.InstrumentService;
 import com.example.mas_11c_janowski_bartosz_s23375.services.MusicStoreService;
 import lombok.RequiredArgsConstructor;
@@ -41,9 +42,20 @@ public class PageController {
         return "musicStoreDetails";
     }
 
-    @GetMapping("/test")
-    public String formTest(Model model){
+    @SuppressWarnings("OptionalIsPresent")
+    @GetMapping("/music_stores/{idStore}/storage/{idStorageRoom}")
+    public String stockAddForm(@PathVariable Long idStore, @PathVariable Long idStorageRoom, Model model){
+        Optional<MusicStore> fetchMusicStore = musicStoreService.musicStoreDetails(idStore);
+
+        if(fetchMusicStore.isPresent()) {
+            model.addAttribute("musicStore", fetchMusicStore.get());
+        }
         model.addAttribute("instruments", instrumentService.listOfInstruments());
         return "addItemForm";
     }
+
+//    @GetMapping("/submitStock")
+//    public String handleFormSubmission() {
+//
+//    }
 }

@@ -47,7 +47,9 @@
             </div>
         </div>
         <div class="view-details-button">
-            <a th:href="@{/music_stores}" class="list-actions-button-details">Add an item</a>
+            <a th:href="@{/music_stores/{idMusicStore}/storage/{idStorage}
+            (idMusicStore=${musicStore.idMusicStore},idStorage=${storage.idStorageRoom})}"
+               class="list-actions-button-details">Add an item</a>
         </div>
     </div>
 
