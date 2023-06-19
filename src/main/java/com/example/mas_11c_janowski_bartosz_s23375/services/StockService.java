@@ -15,27 +15,21 @@ public class StockService {
 
     private final StockRepository stockRepository;
 
-    public boolean doesRecordExist(Stock stock) {
-        return stockRepository.existsByStorageRoomAndInstrument(stock.getStorageRoom(), stock.getInstrument());
-    }
-
     public boolean updateStock(Stock stock) {
-        Stock downloadedStock = fetchExistingStockForUpdate(stock);
+        Optional<Stock> downloadedStock = fetchStockForUpdate(stock);
 
-        int updatedValue = downloadedStock.getStockNumber() + stock.getStockNumber();
-        downloadedStock.setStockNumber((double) updatedValue);
+        if(downloadedStock.isEmpty()) {
+            return insertNewStock(stock);
+        } else {
+            int updatedValue = downloadedStock.get().getStockNumber() + stock.getStockNumber();
+            downloadedStock.get().setStockNumber(updatedValue);
 
-        if(downloadedStock.getIdStock() != null && downloadedStock.getStockNumber() != null && downloadedStock.getStorageRoom() != null
-                && downloadedStock.getInstrument() != null) {
-            stockRepository.save(downloadedStock);
-            return true;
+            return updateExistingStock(downloadedStock.get());
         }
-
-        return false;
     }
 
-    public boolean insertNewStock(Stock stock) {
-        if(!doesRecordExist(stock) && stock.getStockNumber() != null && stock.getStorageRoom() != null && stock.getInstrument() != null) {
+    private boolean insertNewStock(Stock stock) {
+        if(stock.getStockNumber() != null && stock.getStorageRoom() != null && stock.getInstrument() != null) {
             stockRepository.save(stock);
             return true;
         }
@@ -43,7 +37,16 @@ public class StockService {
         return false;
     }
 
-    private Stock fetchExistingStockForUpdate(Stock stock) {
+    private boolean updateExistingStock(Stock stock) {
+        if(stock.getStockNumber() != null && stock.getStorageRoom() != null && stock.getInstrument() != null) {
+            stockRepository.save(stock);
+            return true;
+        }
+
+        return false;
+    }
+
+    private Optional<Stock> fetchStockForUpdate(Stock stock) {
         return stockRepository.findStockByStorageRoomAndInstrument(stock.getStorageRoom(), stock.getInstrument());
     }
 

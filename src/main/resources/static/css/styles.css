@@ -320,6 +320,11 @@ input[type="email"] {
     color: #e74c3c;
 }
 
+.form .storage-error {
+    width: 450px;
+    margin-left: 15px;
+}
+
 
 /* Success message */
 

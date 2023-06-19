@@ -1,5 +1,6 @@
 package com.example.mas_11c_janowski_bartosz_s23375.controller;
 
+import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.Instrument;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.MusicStore;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.StorageRoom;
 import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Stock;
@@ -9,10 +10,12 @@ import com.example.mas_11c_janowski_bartosz_s23375.services.MusicStoreService;
 import com.example.mas_11c_janowski_bartosz_s23375.services.StockService;
 import com.example.mas_11c_janowski_bartosz_s23375.services.StorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,32 +69,48 @@ public class PageController {
 
     @PostMapping("/music_stores/{idMusicStore}/submitStock/{idStorageRoom}")
     public String handleFormSubmission(@PathVariable Long idMusicStore, @PathVariable Long idStorageRoom,
-                                       @ModelAttribute("stock") Stock stock, Model model)
+                                       @RequestParam(required = false) Double stockNumber,
+                                       @RequestParam(required = false) Instrument instrument,
+                                       Model model)
     {
         // validation
         boolean hasErrors = false;
 
-        if(stock.getStockNumber() == null) {
+        // stock number validation
+        if(stockNumber == null) {
             hasErrors = true;
             model.addAttribute("stockNumberError", "This field is required");
-        }
-        else if(stock.getStockNumber() < 1) {
-            hasErrors = true;
-            model.addAttribute("stockNumberError", "Quantity has to be a positive integer");
+        } else {
+            int intValue = stockNumber.intValue();
+            if (stockNumber != intValue || stockNumber < 1) {
+                hasErrors = true;
+                model.addAttribute("stockNumberError", "Quantity has to be a positive integer");
+            }
         }
 
-        if(stock.getInstrument() == null) {
+        // instrument validation
+        if(instrument == null) {
             hasErrors = true;
             model.addAttribute("instrumentError", "This field is required");
         }
-        else if(!instrumentService.verifyInstrumentExists(stock.getInstrument())) {
+        else if(!instrumentService.verifyInstrumentExists(instrument)) {
             hasErrors = true;
             model.addAttribute("instrumentError", "Chosen instrument doesn't exist in the system");
         }
 
+        Optional<StorageRoom> relatedStorage = storageService.fetchStorageRoom(idStorageRoom);
+        // storage validation
+        if(relatedStorage.isEmpty()) {
+            hasErrors = true;
+            model.addAttribute("unexpectedError", "Storage selected for this operation doesn't exist in the system");
+        }
+
+
         // Adding previously entered data if there was at least 1 error
         if(hasErrors) {
-            model.addAttribute("stock", stock);
+            int intValue = stockNumber != null ? stockNumber.intValue() : 0;
+            model.addAttribute("stockNumber", intValue);
+            model.addAttribute("chosenInstrument", instrument);
         }
 
         model.addAttribute("instruments", instrumentService.listOfInstruments());
@@ -100,18 +119,19 @@ public class PageController {
 
         if(!hasErrors) {
             boolean successfulUpdate;
-            Optional<StorageRoom> relatedStorage = storageService.fetchStorageRoom(idStorageRoom);
-            relatedStorage.ifPresent(stock::setStorageRoom);
 
-            if(stockService.doesRecordExist(stock)) {
-                successfulUpdate = stockService.updateStock(stock);
-            } else {
-                successfulUpdate = stockService.insertNewStock(stock);
-            }
+            Stock stock = Stock.builder()
+                    .stockNumber(stockNumber.intValue())
+                    .instrument(instrument)
+                    .storageRoom(relatedStorage.get())
+                    .build();
+
+            successfulUpdate = stockService.updateStock(stock);
 
             if(successfulUpdate) {
                 return "redirect:/music_stores/" + idMusicStore + "/storage/" + idStorageRoom + "?success=true";
             } else {
+                model.addAttribute("unexpectedError", "There was an unexpected error when handling your request");
                 return "addItemForm";
             }
         }

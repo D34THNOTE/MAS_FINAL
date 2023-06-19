@@ -32,7 +32,7 @@
           th:object="${stock}" novalidate>
 
         <label for="stockNumber"><strong>Quantity</strong>: </label>
-        <input type="number" name="stockNumber" id="stockNumber" th:value="${stock != null ? stock.stockNumber : ''}"
+        <input type="number" name="stockNumber" id="stockNumber" th:value="${stockNumber != null ? stockNumber : ''}"
                th:class="${stockNumberError != null ? 'error-input' : ''}">
         <span id="errorStockNumber" class="errors-text" th:text="${stockNumberError}"></span>
 
@@ -40,7 +40,7 @@
         <select name="instrument" id="instrument" th:class="${instrumentError != null ? 'error-input' : ''}">
             <option value="">-- Choose an instrument --</option>
             <option th:each="instrument : ${instruments}" th:value="${instrument.idInstrument}"
-                    th:selected="${stock != null && instrument.idInstrument == stock.instrument?.idInstrument}">
+                    th:selected="${instrument != null && instrument.idInstrument == chosenInstrument?.idInstrument}">
                 <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Guitar)}">Guitar - </span>
                 <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Drum)}">Drum - </span>
                 <span th:if="${instrument instanceof T(com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Cymbal)}">Cymbal - </span>
@@ -48,6 +48,8 @@
             </option>
         </select>
         <span id="errorInstrument" class="errors-text" th:text="${instrumentError}"></span>
+
+        <span id="errorStorage" class="errors-text storage-error" th:text="${unexpectedError}"></span>
 
 
         <div th:if="${success}" class="alert-success" role="alert">
