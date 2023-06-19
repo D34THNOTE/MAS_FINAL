@@ -248,7 +248,7 @@ input[type="email"] {
 
 .return-button {
     position: fixed;
-    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    bottom: 20px;
     left: 215px;
     display: block;
     width: 10%;
@@ -318,4 +318,19 @@ input[type="email"] {
     line-height: 2.25rem;
     margin-top: 0.5rem;
     color: #e74c3c;
+}
+
+
+/* Success message */
+
+.alert-success {
+    color: black;
+    background-color: #A9FFA1;
+    border: 4px solid #5EFF36;
+    padding: 10px 40px;
+    border-radius: 20px;
+
+    position: fixed;
+    left: 550px;
+    bottom: 50px;
 }

@@ -42,14 +42,14 @@ public class Employee {
     @NotNull
     private static Double minimumHourlyRate = 10.0;
 
-    @AssertTrue(message = "Hourly rate must be at least 10.00") // this must pass when creating an Employee
-    private boolean isHourlyRateValid() {
-        return hourlyRate >= minimumHourlyRate;
-    }
-
     @ManyToOne
     @JoinColumn(name = "id_music_store")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private MusicStore worksIn;
+
+    @AssertTrue(message = "Hourly rate must be at least 10.00") // this must pass when creating an Employee
+    private boolean isHourlyRateValid() {
+        return hourlyRate >= minimumHourlyRate;
+    }
 }

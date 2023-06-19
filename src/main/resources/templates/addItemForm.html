@@ -50,6 +50,10 @@
         <span id="errorInstrument" class="errors-text" th:text="${instrumentError}"></span>
 
 
+        <div th:if="${success}" class="alert-success" role="alert">
+            <strong>Storage successfully updated!</strong>
+        </div>
+
         <div class="form-buttons">
             <input class="form-button-submit" type="submit" value="Add item" />
 
