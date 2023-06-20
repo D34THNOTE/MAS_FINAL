@@ -38,6 +38,8 @@ public class Employee {
 
         if(hourlyRate < minimumHourlyRate) throw new IllegalArgumentException("Minimum hourly rate is " + minimumHourlyRate);
 
+        if(this.hourlyRate != null && this.hourlyRate * 1.1 < hourlyRate) throw new IllegalArgumentException("Hourly rate cannot be raised by more than 10%");
+
         if(hourlyRate > 1000) throw new IllegalArgumentException("Hourly rate cannot be bigger than 1000");
 
         this.hourlyRate = hourlyRate;
