@@ -36,8 +36,8 @@ public class Customer {
     @Embedded
     private ShippingAddress shippingAddress;
 
-    // use an annotation for sorting Purchases or write a query(will need a List, not a Set, of Purchases here for the association)
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+    // use an annotation for sorting Purchases
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default

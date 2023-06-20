@@ -26,9 +26,14 @@ public class InstrumentService {
         return instrumentRepository.existsByModelName(instrument.getModelName());
     }
 
-
-
     public void saveInstrument(Instrument instrument) {
-        // validate if has Material
+        // XOR implementation
+        if(instrument == null) throw new IllegalArgumentException("Passed instrument is null");
+
+        if(instrument.getMetal() != null && instrument.getWood() != null || instrument.getMetal() == null && instrument.getWood() == null) {
+            throw new IllegalArgumentException("Instrument must have only one material type associated with it");
+        }
+
+        instrumentRepository.save(instrument);
     }
 }

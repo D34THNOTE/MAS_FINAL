@@ -31,4 +31,6 @@ public class MusicStoreService {
     public List<StorageRoom> musicStoreAssociatedStorages(MusicStore musicStore) {
         return (List<StorageRoom>) storageRoomRepository.findAllByOwner(musicStore);
     }
+
+
 }

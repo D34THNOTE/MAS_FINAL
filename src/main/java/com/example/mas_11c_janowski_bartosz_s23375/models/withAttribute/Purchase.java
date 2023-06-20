@@ -16,9 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id_instrument", "id_customer"})
-})
 public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

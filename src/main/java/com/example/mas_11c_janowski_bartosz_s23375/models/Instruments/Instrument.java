@@ -5,10 +5,7 @@ import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.Materials.
 import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Purchase;
 import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Stock;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -35,7 +32,8 @@ public abstract class Instrument {
     private String modelName;
 
     @NotNull(message = "Price is required")
-    @Min(value = 0, message = "Instrument's price is required")
+    @Min(value = 0, message = "Instrument's price cannot be smaller than 0")
+    @Max(value = 9999999, message = "Instrument's price cannot be bigger than 9 999 999")
     private Double price;
 
     @NotNull(message = "Instrument status is required")

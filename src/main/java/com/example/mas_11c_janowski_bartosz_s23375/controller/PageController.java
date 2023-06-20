@@ -31,12 +31,25 @@ public class PageController {
 
     private final StockService stockService;
 
+    /**
+     * Displays a list of all music stores.
+     *
+     * @return the view name for the music stores list.
+     */
     @GetMapping("/music_stores")
     public String musicStoreList(Model model){
         model.addAttribute("musicStores", musicStoreService.listOfMusicStores());
         return "musicStoreList";
     }
 
+    /**
+     * Displays the details of a music store.
+     *
+     * @param idStore        ID of the music store, collected from the URL.
+     * @param model          model to hold attributes for the view.
+     *
+     * @return the view name for the music store's details.
+     */
     @GetMapping("/music_stores/{idStore}")
     public String musicStoreDetails(@PathVariable Long idStore, Model model){
         Optional<MusicStore> fetchMusicStore = musicStoreService.musicStoreDetails(idStore);
@@ -52,6 +65,16 @@ public class PageController {
     }
 
 
+    /**
+     * Displays the stock add form for a music store's storage room.
+     *
+     * @param idStore        ID of the music store, collected from the URL.
+     * @param idStorageRoom  ID of the storage room, collected from the URL.
+     * @param success        optional success flag indicating a successful update, collected from the URL.
+     * @param model          model to hold attributes for the view.
+     *
+     * @return the view name for the stock add form.
+     */
     @GetMapping("/music_stores/{idStore}/storage/{idStorageRoom}")
     public String stockAddForm(@PathVariable Long idStore, @PathVariable Long idStorageRoom,
                                @RequestParam(value = "success", required = false) String success, Model model)
@@ -67,6 +90,17 @@ public class PageController {
         return "addItemForm";
     }
 
+    /**
+     * Handles the form submission for adding stock to a music store's storage room.
+     *
+     * @param idMusicStore  ID of the music store, collected from the URL.
+     * @param idStorageRoom ID of the storage room, collected from the URL.
+     * @param stockNumber   quantity of stock to be added, passed from the form.
+     * @param instrument    instrument to be added to the stock, passed from the form.
+     * @param model         model to hold attributes for the view.
+     *
+     * @return the view name to display after handling the form submission.
+     */
     @PostMapping("/music_stores/{idMusicStore}/submitStock/{idStorageRoom}")
     public String handleFormSubmission(@PathVariable Long idMusicStore, @PathVariable Long idStorageRoom,
                                        @RequestParam(required = false) Double stockNumber,

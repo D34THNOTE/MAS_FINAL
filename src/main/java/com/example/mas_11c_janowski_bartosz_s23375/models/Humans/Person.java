@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.aspectj.lang.annotation.After;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -50,7 +51,11 @@ public class Person {
     @Size(min = 1, message = "At least one phone number is required")
     private Set<String> phoneNumbers = new HashSet<>();
 
-    // derived attribute "age"
+    /**
+     * Calculates the age of the person based on their date of birth.
+     *
+     * @return the age of the person in years.
+     */
     public int getAge() {
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(dateOfBirth, currentDate);

@@ -3,6 +3,7 @@ package com.example.mas_11c_janowski_bartosz_s23375.models.Humans;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.MusicStore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -20,7 +21,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEmployee;
 
-    @OneToOne(cascade = CascadeType.MERGE) //no cascade here or MERGE
+    @OneToOne(cascade = CascadeType.MERGE)
     @NotNull(message = "Person owner class is required")
     @JoinColumn(name = "id_person")
     @ToString.Exclude
@@ -28,13 +29,30 @@ public class Employee {
     private Person owner;
 
     @NotNull(message = "Hourly rate is required")
-    @Min(10)
+    @Min(value = 0, message = "Hourly rate cannot be a negative number")
+    @Max(value = 1000, message = "Maximum hourly rate is 1000")
     private Double hourlyRate;
+
+    public void setHourlyRate(Double hourlyRate) {
+        if(hourlyRate == null) throw new IllegalArgumentException("Hourly rate is required");
+
+        if(hourlyRate < minimumHourlyRate) throw new IllegalArgumentException("Minimum hourly rate is " + minimumHourlyRate);
+
+        if(hourlyRate > 1000) throw new IllegalArgumentException("Hourly rate cannot be bigger than 1000");
+
+        this.hourlyRate = hourlyRate;
+    }
 
     @NotNull(message = "Hire date is required")
     private LocalDate hireDate;
 
     private LocalDate fireDate;
+
+    public void setFireDate(LocalDate fireDate) {
+        if(fireDate != null && hireDate.isAfter(fireDate)) throw new IllegalArgumentException("Fire date cannot be a date before the date of hiring the employee");
+
+        this.fireDate = fireDate;
+    }
 
     @NotNull(message = "Managerial status is required")
     private boolean isManager;
@@ -42,14 +60,31 @@ public class Employee {
     @NotNull
     private static Double minimumHourlyRate = 10.0;
 
+    public static Double getMinimumHourlyRate() {
+        return minimumHourlyRate;
+    }
+
     @ManyToOne
     @JoinColumn(name = "id_music_store")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private MusicStore worksIn;
 
-    @AssertTrue(message = "Hourly rate must be at least 10.00") // this must pass when creating an Employee
-    private boolean isHourlyRateValid() {
+    public boolean isHourlyRateValid() {
+        if(hourlyRate == null) throw new IllegalArgumentException("Hourly rate is required");
+
         return hourlyRate >= minimumHourlyRate;
+    }
+
+    public boolean isFireDateAfterHireDate() {
+        if(fireDate == null) {
+            return true;
+        }
+        if(hireDate != null) {
+            if(fireDate != null) return fireDate.isAfter(hireDate);
+            return true;
+        }
+
+        return false;
     }
 }
