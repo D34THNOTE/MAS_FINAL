@@ -16,6 +16,13 @@ public class EmployeeService {
 
     private final PersonRepository personRepository;
 
+    /**
+     * Saves or updates an Employee entity in the system.
+     *
+     * @param employee the Employee to be saved or updated.
+     * @throws IllegalArgumentException if the passed employee is null, if the employee has no associated person, if the associated person is not saved in the database,
+     * if the employee's hourly rate is invalid, or if the employee's fire date is invalid.
+     */
     public void saveEmployee(Employee employee) {
         if(employee == null) throw new IllegalArgumentException("Passed employee is null");
 
@@ -32,6 +39,14 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
+    /**
+     * Changes the hourly rate of an Employee.
+     *
+     * @param employee the Employee whose hourly rate is to be changed.
+     * @param newRate the new hourly rate.
+     * @throws IllegalArgumentException if the passed employee is null, if the passed new rate is null, if the new rate is below the allowed minimum hourly rate
+     * or if the hourly rate is raised by more than 10%.
+     */
     public void changeHourlyRate(Employee employee, Double newRate) {
         if(employee == null) throw new IllegalArgumentException("Passed employee is null");
         if(newRate == null) throw new IllegalArgumentException("Passed new rate is null");

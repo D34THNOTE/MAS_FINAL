@@ -13,7 +13,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        musicStoreDataInitialization.createMusicStores();
-        instrumentDataInitialization.createInstruments();
+//        musicStoreDataInitialization.createMusicStores();
+//        instrumentDataInitialization.createInstruments();
     }
 }

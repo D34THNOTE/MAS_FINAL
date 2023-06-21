@@ -72,11 +72,23 @@ public class Employee {
     @EqualsAndHashCode.Exclude
     private MusicStore worksIn;
 
+    /**
+     * Checks if the hourly rate of the Employee is valid.
+     *
+     * @return true if the hourly rate is valid and greater than or equal to the minimum hourly rate, false otherwise
+     * @throws IllegalArgumentException if the hourly rate is null
+     */
     public boolean isHourlyRateValid() {
         if(hourlyRate == null) throw new IllegalArgumentException("Hourly rate is required");
 
         return hourlyRate >= minimumHourlyRate;
     }
+
+    /**
+     * Checks if the fire date of the Employee is valid.
+     *
+     * @return true if the fire date is after the hire date or if the fire date is null, false otherwise, also if the hire date is null.
+     */
 
     public boolean isFireDateAfterHireDate() {
         if(fireDate == null) {
