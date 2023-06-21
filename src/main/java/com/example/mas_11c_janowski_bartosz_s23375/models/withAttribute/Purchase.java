@@ -4,10 +4,7 @@ import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Customer;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.Instrument;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -28,13 +25,17 @@ public class Purchase {
     @Enumerated(EnumType.STRING)
     private PurchaseStatus purchaseStatus;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_instrument", nullable = false)
     @NotNull(message = "Instrument included in the purchase is required")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Instrument instrument;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_customer", nullable = false)
     @NotNull(message = "Customer included in the purchase is required")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Customer customer;
 }

@@ -3,6 +3,7 @@ package com.example.mas_11c_janowski_bartosz_s23375.services;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Employee;
 import com.example.mas_11c_janowski_bartosz_s23375.repositories.EmployeeRepository;
 import com.example.mas_11c_janowski_bartosz_s23375.repositories.PersonRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +56,9 @@ public class EmployeeService {
         if(newRate > employee.getHourlyRate() * 1.1) throw new IllegalArgumentException("The hourly rate cannot be raised by more than 10%");
 
         employee.setHourlyRate(newRate);
+
+        Employee employeeToUpdate = employeeRepository.findById(employee.getIdEmployee()).orElseThrow(() -> new EntityNotFoundException("Such employee was not found"));
+        employeeRepository.save(employeeToUpdate);
     }
 
 }
