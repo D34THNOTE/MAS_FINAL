@@ -29,12 +29,12 @@ public class Purchase {
     private PurchaseStatus purchaseStatus;
 
     @ManyToOne
-    @JoinColumn(name = "id_instrument")
+    @JoinColumn(name = "id_instrument", nullable = false)
     @NotNull(message = "Instrument included in the purchase is required")
     private Instrument instrument;
 
     @ManyToOne
-    @JoinColumn(name = "id_customer")
+    @JoinColumn(name = "id_customer", nullable = false)
     @NotNull(message = "Customer included in the purchase is required")
     private Customer customer;
 }

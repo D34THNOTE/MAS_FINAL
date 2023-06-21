@@ -28,11 +28,11 @@ public class PersonService {
      * @throws IllegalArgumentException if the passed person is null or if the person has neither an Employee nor a Customer association.
      */
     public void savePerson(Person person) {
-        // implementation of the OR constraint between Customer and Employee(a person can have both, but can't have neither)
         if (person == null) {
             throw new IllegalArgumentException("Passed person is null");
         }
 
+        // implementation of the OR constraint between Customer and Employee(a person can have both, but can't have neither)
         if (person.getEmployee() == null && person.getCustomer() == null) {
             throw new IllegalArgumentException("Person must have at least one association (Employee or Customer)");
         }
