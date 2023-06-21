@@ -6,15 +6,18 @@ import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Customer;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Employee;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Person;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.ShippingAddress;
+import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.Instrument;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.Guitar;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentImplementations.GuitarType;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.InstrumentStatus;
+import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.Materials.*;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.MusicStore;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.StorageRoom;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Store.StoreAddress;
 import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.Purchase;
 import com.example.mas_11c_janowski_bartosz_s23375.models.withAttribute.PurchaseStatus;
 import com.example.mas_11c_janowski_bartosz_s23375.repositories.*;
+import com.example.mas_11c_janowski_bartosz_s23375.services.InstrumentService;
 import com.example.mas_11c_janowski_bartosz_s23375.services.PersonService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -57,6 +60,9 @@ public class AssociationsInheritancesTest {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private InstrumentService instrumentService;
 
     Person person1, person2;
 
@@ -232,5 +238,31 @@ public class AssociationsInheritancesTest {
         assertEquals(purchase1, hopefullyOrderedList.get(1));
         assertEquals(purchase3, hopefullyOrderedList.get(2));
     }
+
+    @Test
+    public void testServicesInstrumentSave() {
+        Instrument guitar1 = Guitar.builder()
+                .modelName("Test")
+                .price(60.0)
+                .instrumentStatus(InstrumentStatus.INSTOCK)
+                .numberOfStrings(6)
+                .guitarType(GuitarType.ACOUSTIC)
+                .heightInMillimeters(1000)
+                .widthInMillimeters(60)
+                .depthInMillimeters(50)
+                .build();
+
+        Wood wood = Wood.builder()
+                .woodType(WoodType.MAPLE)
+                .woodFinishType(WoodFinishType.NATURAL)
+                .instrument(guitar1)
+                .build();
+
+        guitar1.setWood(wood);
+
+        instrumentService.saveInstrument(guitar1);
+    }
+
+
 
 }

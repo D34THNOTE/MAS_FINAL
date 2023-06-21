@@ -3,7 +3,6 @@ package com.example.mas_11c_janowski_bartosz_s23375.services;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Customer;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Employee;
 import com.example.mas_11c_janowski_bartosz_s23375.models.Humans.Person;
-import com.example.mas_11c_janowski_bartosz_s23375.models.Instruments.Instrument;
 import com.example.mas_11c_janowski_bartosz_s23375.repositories.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
